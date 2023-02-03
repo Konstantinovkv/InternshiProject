@@ -1,5 +1,7 @@
 package internshipProject.service;
 
+import com.theokanning.openai.OpenAiService;
+import com.theokanning.openai.completion.CompletionRequest;
 import internshipProject.dao.Entity.Complaint;
 import internshipProject.dao.Entity.User;
 import internshipProject.dao.repository.UserRepository;
@@ -9,7 +11,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import internshipProject.dao.repository.ComplaintRepository;
 import internshipProject.dto.ComplaintResponse;
-
 import javax.mail.MessagingException;
 import java.util.List;
 import java.util.Properties;
@@ -43,7 +44,7 @@ public class ComplaintServiceImpl implements ComplaintService {
     @SneakyThrows
     public void registerComplaint(ComplaintResponse complaint, User user) {
         complaintRepository.save(new Complaint(new java.sql.Date(System.currentTimeMillis()), complaint.getText(), complaint.getTopic(), user));
-        sendEmail(user);
+        sendEmail(user, complaint);
     }
 
     @Override
@@ -55,7 +56,7 @@ public class ComplaintServiceImpl implements ComplaintService {
         complaintRepository.deleteById(id);
     }
 
-    private void sendEmail(User user) throws MessagingException {
+    private void sendEmail(User user, ComplaintResponse complaint) throws MessagingException {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -71,14 +72,34 @@ public class ComplaintServiceImpl implements ComplaintService {
         msg.setFrom(new InternetAddress("complaints@gmail.com", false));
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
-        msg.setSubject("Sorry to hear that");
-        msg.setContent("We are sorry to hear about your problem " + user.getUsername() + "! " +
-                "\nDrink some water, maybe it will help", "text/html");
+        msg.setSubject("Re:" + complaint.getTopic());
+        msg.setContent(communicateWithAi(complaint), "text/html");
         msg.setSentDate(new Date());
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();
         messageBodyPart.setContent("", "text/html");
         Transport.send(msg);
+    }
+
+    private String communicateWithAi(ComplaintResponse complaint){
+        String token = "";
+        OpenAiService service = new OpenAiService(token);
+
+        StringBuilder sb = new StringBuilder();
+
+        CompletionRequest completionRequest = CompletionRequest.builder()
+                .model("davinci")
+                .prompt("Regarding your complaint '" + complaint.getTopic() + "' we are sorry that ")
+                .temperature(1.0)
+                .user("testing")
+                .build();
+
+        service.createCompletion(completionRequest).getChoices().forEach(
+                sb::append
+        );
+        String result = sb.toString();
+        result = result.replace("CompletionChoice(text=", "");
+        return result.replace(", index=0, logprobs=null, finish_reason=length)", "");
     }
 
 }
