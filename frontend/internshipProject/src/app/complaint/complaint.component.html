@@ -17,6 +17,27 @@
         <button type="submit" style="margin-top: 2%;" (click)="registerComplaint(box1.value, box2.value)">Submit</button>
       </form>
 
+      <br>
+      <br>
+      <br>
+
+      <h1>My Complaints</h1>
+      <table class="table table-striped">
+        <thead>
+            <th>Topic</th>
+            <th>Text</th>
+            <th>Date</th>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let complaint of (complaints$ | async)">
+                <td>{{complaint.topic}}</td>
+                <td>{{complaint.text}}</td>
+                <td>{{complaint.date}}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit" style="margin-top: 2%;" (click)="getComplaints()">Submit</button>
+
     </div>
   </div>
 </div>

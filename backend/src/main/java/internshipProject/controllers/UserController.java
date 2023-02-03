@@ -11,7 +11,7 @@ import internshipProject.dao.Entity.User;
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 @RequestMapping(value = "/user")
-public class UserController extends BaseController{
+public class UserController{
 
     @Autowired
     private UserServiceImpl usi;
@@ -25,7 +25,6 @@ public class UserController extends BaseController{
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity login(@RequestBody LoginData loginData) {
-        System.out.println("LOGGED");
         return !usi.login(loginData.getEmail(), loginData.getPassword())
                 ? new ResponseEntity<>(HttpStatus.UNAUTHORIZED)
                 : new ResponseEntity<>(HttpStatus.OK);

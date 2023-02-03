@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import internshipProject.dao.repository.ComplaintRepository;
 import internshipProject.dto.ComplaintResponse;
 
+import java.util.List;
+
 @Service
 public class ComplaintServiceImpl implements ComplaintService {
 
@@ -16,10 +18,10 @@ public class ComplaintServiceImpl implements ComplaintService {
     private UserRepository userRepository;
 
     @Autowired
-    private ComplaintRepository repository;
+    private ComplaintRepository complaintRepository;
 
     public Complaint getComplaintById(long complaintId) {
-        final Complaint complaint = repository.findById(complaintId);
+        final Complaint complaint = complaintRepository.findById(complaintId);
         if (complaint == null) {
             return null;
         }
@@ -27,11 +29,16 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     public void registerComplaint(ComplaintResponse complaint, User user) {
-        repository.save(new Complaint(new java.sql.Date(System.currentTimeMillis()), complaint.getText(), complaint.getTopic(), user));
+        complaintRepository.save(new Complaint(new java.sql.Date(System.currentTimeMillis()), complaint.getText(), complaint.getTopic(), user));
+    }
+
+    @Override
+    public List<Complaint> findComplaintsByUser(User user) {
+        return complaintRepository.findComplaintsByUser(user);
     }
 
     public void deleteComplaint(long id) {
-        repository.deleteById(id);
+        complaintRepository.deleteById(id);
     }
 
 }
