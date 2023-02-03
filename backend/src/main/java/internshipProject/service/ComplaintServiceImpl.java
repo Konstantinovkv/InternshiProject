@@ -1,6 +1,7 @@
 package internshipProject.service;
 
 import internshipProject.dao.Entity.Complaint;
+import internshipProject.dao.Entity.User;
 import internshipProject.dao.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,16 @@ public class ComplaintServiceImpl implements ComplaintService {
     @Autowired
     private ComplaintRepository repository;
 
-    public ComplaintResponse getComplaintById(long complaintId) {
+    public Complaint getComplaintById(long complaintId) {
         final Complaint complaint = repository.findById(complaintId);
         if (complaint == null) {
             return null;
         }
-        return new ComplaintResponse(complaint.getComplaintId(), complaint.getDate(),
-                complaint.getText(), complaint.getUser(),
-                complaint.getTopic());
+        else return complaint;
     }
 
-    public void registerComplaint(ComplaintResponse complaint) {
-        repository.save(new Complaint(complaint.getDate(), complaint.getText(), complaint.getTopic(), complaint.getUser()));
+    public void registerComplaint(ComplaintResponse complaint, User user) {
+        repository.save(new Complaint(new java.sql.Date(System.currentTimeMillis()), complaint.getText(), complaint.getTopic(), user));
     }
 
     public void deleteComplaint(long id) {

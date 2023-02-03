@@ -1,0 +1,30 @@
+# IntelliJ files
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Angular files
+node_modules/
+dist/
+
+# Java files
+out/
+target/
+
+# Gradle files
+.gradle/
+build/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Log files
+logs/
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear

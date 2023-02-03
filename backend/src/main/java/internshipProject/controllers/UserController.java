@@ -8,18 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import internshipProject.dao.Entity.User;
 
-import javax.servlet.http.HttpSession;
-
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 @RequestMapping(value = "/user")
-public class UserController {
+public class UserController extends BaseController{
 
     @Autowired
     private UserServiceImpl usi;
-
-    @Autowired
-    private HttpSession session;
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody User user) {
@@ -29,14 +24,11 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.OK)
-    public void login(@RequestBody LoginData loginData) {
-        if(!usi.login(loginData.getEmail(), loginData.getPassword())) {
-            throw new UnauthorizedException();
-        }
-    }
-
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public static class UnauthorizedException extends RuntimeException {
+    public ResponseEntity login(@RequestBody LoginData loginData) {
+        System.out.println("LOGGED");
+        return !usi.login(loginData.getEmail(), loginData.getPassword())
+                ? new ResponseEntity<>(HttpStatus.UNAUTHORIZED)
+                : new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

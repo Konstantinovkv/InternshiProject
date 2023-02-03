@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ComplaintService } from '../complaint.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-complaint',
@@ -10,14 +11,24 @@ import { Router } from '@angular/router';
 
 export class ComplaintComponent implements OnInit {
 
-  constructor(private complaintService: ComplaintService, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) { }
+  
+  private complaintUrl = environment.API_URL + "complaint/register";
 
   ngOnInit(): void {
     
   }
 
-  login(val1: any, val2: any){
-    this.complaintService.complaint(val1, val2);
+  registerComplaint(val1: any, val2: any){
+    var emailSession = localStorage.getItem("email");
+
+    var complaint = {
+      text: val1,
+      topic: val2,
+      email: emailSession
+    };
+
+    this.http.post(`${this.complaintUrl}`, complaint, {withCredentials: true}).subscribe((res) => {console.log(res)});
   }
 
   redirectToComplaint() {

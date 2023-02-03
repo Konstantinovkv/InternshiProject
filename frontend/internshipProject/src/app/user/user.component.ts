@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-user',
@@ -10,14 +11,28 @@ import { Router } from '@angular/router';
 
 export class UserComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  private registerUserUrl = environment.API_URL + "user/register";
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit(): void {
     
   }
 
   register(val1: any, val2: any, val3: any, val4: any, val5: any, val6: any){
-    this.userService.registerNewUser(val1, val2, val3, val4, val5, val6);
+    var address = {
+      country: val4,
+      city: val5,
+      street: val6
+    }
+    var user = { 
+      username: val1,
+      email: val2,
+      password: val3,
+      address: address
+   };
+    
+    this.http.post(`${this.registerUserUrl}`, user, {withCredentials: true}).subscribe((res) => {console.log(res)});
   }
 
   redirectToLogin() {

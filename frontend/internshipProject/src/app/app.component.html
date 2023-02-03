@@ -3,9 +3,8 @@
       [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
       [mode]="(isHandset$ | async) ? 'over' : 'side'"
       [opened]="(isHandset$ | async) === false">
-    <a routerLink=""><h1 class="font-weight-bold" style="color: black; margin-left: 8%; margin-top: 8%;">Home</h1></a>
-    <mat-nav-list>
-      <a mat-list-item routerLink="/register"><h3 style="color: black; margin-left: 2%; margin-top: 8%;">Register</h3></a>
+    <mat-nav-list style="margin-top: 20%;">
+      <a mat-list-item routerLink=""><h1 style="color: black; margin-left: 2%; margin-top: 8%;">Home</h1></a>
       <a mat-list-item routerLink="/login"><h3 style="color: black; margin-left: 2%; margin-top: 8%;">Login</h3></a>
       <a mat-list-item routerLink="/complaint"><h3 style="color: black; margin-left: 2%; margin-top: 8%;">Complaint</h3></a>
     </mat-nav-list>

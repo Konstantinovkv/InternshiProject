@@ -24,16 +24,16 @@ public class UserServiceImpl implements UserService {
        userRepository.save(user);
     }
 
-    public boolean login(String email, String password) {
+    public boolean login(final String email, final String password) {
         User user = userRepository.findByEmail(email);
         if (user == null){
             return false;
         }
-        if (user.checkPassword(password)) {
-            session.setAttribute(email, user);
-            return true;
-        }
-        return false;
+        return user.checkPassword(password);
+    }
+
+    public User getUserByEmail(final String email){
+        return userRepository.findByEmail(email);
     }
 
 }

@@ -13,10 +13,12 @@ import javax.persistence.Table;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "complaint")
 @Data
+@NoArgsConstructor
 public class Complaint {
 
     @Id

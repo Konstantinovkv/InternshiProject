@@ -6,29 +6,35 @@
           <form>
             <div>
               <label for="username">Username:</label>
+              <br>
               <input type="text" id="username" #box1>
             </div>
             <div>
               <label for="email">Email:</label>
+              <br>
               <input type="email" id="email" #box2>
             </div>
             <div>
               <label for="password">Password:</label>
+              <br>
               <input type="password" id="password" #box3>
             </div>
             <div>
               <label for="country">Coutnry:</label>
+              <br>
               <input type="text" id="country" #box4>
             </div>
             <div>
               <label for="city">City:</label>
+              <br>
               <input type="text" id="city" #box5>
             </div>
             <div>
               <label for="street">Street:</label>
+              <br>
               <input type="text" id="street" #box6>
             </div>
-            <button type="submit" (click)="register(box1.value, box2.value, box3.value, box4.value, box5.value, box6.value); redirectToLogin()">Submit</button>
+            <button type="submit" style="margin-top: 2%;" (click)="register(box1.value, box2.value, box3.value, box4.value, box5.value, box6.value); redirectToLogin()">Submit</button>
           </form>
 
         </div>

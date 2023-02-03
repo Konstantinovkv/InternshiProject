@@ -29,9 +29,6 @@ public class User {
     @JoinColumn(name = "addressId", referencedColumnName = "addressId")
     private Address address;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Complaint> complaints;
-
     public void setPassword(String password) {
         this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
