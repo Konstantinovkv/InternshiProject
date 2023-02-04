@@ -30,6 +30,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Value("${spring.mail.username}") private String username;
     @Value("${spring.mail.password}") private String password;
+    @Value("${token}") private String token;
     private static final String BR = "<br>";
 
     @Autowired
@@ -89,7 +90,6 @@ public class ComplaintServiceImpl implements ComplaintService {
     }
 
     private String communicateWithAi(ComplaintResponse complaint){
-        String token = "";
         OpenAiService service = new OpenAiService(token);
 
         StringBuilder sb = new StringBuilder();
