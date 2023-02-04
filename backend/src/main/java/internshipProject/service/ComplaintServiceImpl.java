@@ -96,7 +96,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 
         CompletionRequest completionRequest = CompletionRequest.builder()
                 .model("davinci")
-                .prompt("Regarding your complaint '" + complaint.getTopic() + "' we are sorry that ")
+                .prompt("Regarding your complaint '" + complaint.getText() + "' we are sorry that ")
                 .temperature(1.0)
                 .user("testing")
                 .build();
