@@ -1,7 +1,7 @@
 Internship Project
 
 Backend - Java
-Used: Maven, Spring boot starter web, Spring boot starter data jpa, Mysql, Lombok
+Used: Maven, Spring boot starter : Web ,Data JPA, Mail, Spring Security Crypto, Mysql, Lombok, OpenAI Cahtbot GPT3
 
 Frontend - Angular
 
