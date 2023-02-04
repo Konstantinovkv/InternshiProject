@@ -11,6 +11,7 @@ dist/
 # Java files
 out/
 target/
+*/target
 
 # Gradle files
 .gradle/
