@@ -30,6 +30,7 @@ public class ComplaintServiceImpl implements ComplaintService {
 
     @Value("${spring.mail.username}") private String username;
     @Value("${spring.mail.password}") private String password;
+    private static final String BR = "<br>";
 
     @Autowired
     private ComplaintRepository complaintRepository;
@@ -69,11 +70,17 @@ public class ComplaintServiceImpl implements ComplaintService {
             }
         });
         Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress("complaints@gmail.com", false));
+        msg.setFrom(new InternetAddress("complaints@gmail.com", true));
+        StringBuilder message = new StringBuilder();
+        message.append("Hello ").append(user.getUsername()).append(",").append(BR+BR)
+                .append("Regarding your complaint '").append(complaint.getTopic())
+                .append("' we are sorry that ").append(communicateWithAi(complaint))
+                .append(".").append(BR+BR).append("Best Wishes,").append(BR)
+                .append("Complaints Team");
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(user.getEmail()));
         msg.setSubject("Re:" + complaint.getTopic());
-        msg.setContent(communicateWithAi(complaint), "text/html");
+        msg.setContent(message.toString(), "text/html");
         msg.setSentDate(new Date());
 
         MimeBodyPart messageBodyPart = new MimeBodyPart();
