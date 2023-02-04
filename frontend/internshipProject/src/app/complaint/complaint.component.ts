@@ -27,8 +27,8 @@ export class ComplaintComponent implements OnInit {
     var emailSession = localStorage.getItem("email");
 
     var complaint = {
-      text: val1,
-      topic: val2,
+      topic: val1,
+      text: val2,
       email: emailSession
     };
 
