@@ -27,27 +27,26 @@ body {
   
   h1 {
     font-size: 36px;
-    font-weight: normal;
-    margin-bottom: 20px;
+    font-weight: bold;
+    margin-bottom: 0%;
   }
   
   form {
-    margin-top: 20px;
+    margin-top: 2%;
   }
   
   label {
     font-size: 16px;
-    font-weight: normal;
-    margin-top: 20px;
-    display: block;
+    font-weight: bold;
+    margin-top: 4%;
   }
   
   input {
     width: 100%;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 2%;
     border-radius: 5px;
-    border: none;
+    border: 2px solid rgb(0, 0, 0);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
   }
   
@@ -60,7 +59,7 @@ body {
     border: none;
     font-size: 18px;
     font-weight: bold;
-    margin-top: 20px;
+    margin-top: 8%;
     cursor: pointer;
   }
   

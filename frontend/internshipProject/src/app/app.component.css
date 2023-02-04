@@ -24,3 +24,15 @@ mat-toolbar {
 .mat-list-item h3 {
   margin: 0;
 }
+
+h1 {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 0%;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 0%;
+}
